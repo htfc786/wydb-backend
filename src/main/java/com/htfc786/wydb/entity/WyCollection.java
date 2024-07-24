@@ -1,14 +1,21 @@
 package com.htfc786.wydb.entity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
 public class WyCollection {
+
+    @ApiModelProperty("id")
     private Integer id;
 
+    @ApiModelProperty("集合名称")
     private String name;
 
+    @ApiModelProperty("集合描述（可选）")
     private String description;
 
+    @ApiModelProperty("文集创建时间")
     private Date createdAt;
 
     public WyCollection() {

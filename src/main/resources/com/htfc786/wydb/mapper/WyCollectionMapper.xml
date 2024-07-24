@@ -23,4 +23,7 @@
     <select id="getAll" resultType="com.htfc786.wydb.entity.WyCollection">
         SELECT * FROM `wy_collection`
     </select>
+    <select id="getList" resultType="com.htfc786.wydb.model.dto.WyCollectionList">
+        SELECT id,name FROM `wy_collection`
+    </select>
 </mapper>

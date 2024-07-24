@@ -3,6 +3,7 @@ package com.htfc786.wydb.controller;
 import com.htfc786.wydb.common.BaseResponse;
 import com.htfc786.wydb.common.ResponseUtils;
 import com.htfc786.wydb.entity.WyCollection;
+import com.htfc786.wydb.model.dto.WyCollectionList;
 import com.htfc786.wydb.service.WyCollectionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,12 +25,18 @@ public class WyCollectionController {
         return ResponseUtils.success(wyCollectionService.getAll());
     }
 
+    @ApiOperation(value = "获取文集列表")
+    @GetMapping("/collection/list")
+    public BaseResponse<List<WyCollectionList>> getList() {
+        return ResponseUtils.success(wyCollectionService.getList());
+    }
+
     @ApiOperation(value = "根据id获取文集")
     @GetMapping("/collection/{id}")
     public BaseResponse<WyCollection> getById(@PathVariable int id) {
         WyCollection col = wyCollectionService.getById(id);
         if (col == null) {
-            return ResponseUtils.error(400, "id:" + id + " 文集不存在！");
+            return ResponseUtils.error(404, "id:" + id + " 文集不存在！");
         }
         return ResponseUtils.success(col);
     }
