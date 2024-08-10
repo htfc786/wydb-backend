@@ -50,16 +50,4 @@ public class WyArticleService {
         return wyArticleMapper.deleteById(collectionId, id);
     }
 
-    // 是否存在
-    public boolean isExist(Long id) {
-        return getById(id) != null;
-    }
-
-    public boolean isExist(Long collectionId, Long id) {
-        return get(collectionId, id) != null;
-    }
-
-    public boolean isExist(WyArticle wyArticle) {
-        return getById(wyArticle.getId()) != null;
-    }
 }

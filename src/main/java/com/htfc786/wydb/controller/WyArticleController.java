@@ -29,7 +29,7 @@ public class WyArticleController {
 
     @ApiOperation(value = "获取全部文章")
     @GetMapping("/collection/{collectionId}/article")
-    public BaseResponse<ResWyArticleGetList> getByCollectionId(@PathVariable Long collectionId) {
+    public BaseResponse<ResWyArticleGetList> getAll(@PathVariable Long collectionId) {
         // 组装json数据 示例：{ collection: {文集信息}, articleList: [文章列表] }
         // 查询文集信息
         WyCollection wyCollection = wyCollectionService.getById((int) (long) collectionId);
@@ -45,7 +45,7 @@ public class WyArticleController {
 
     @ApiOperation(value = "根据id获取文章")
     @GetMapping("/collection/{collectionId}/article/{id}")
-    public BaseResponse<ResWyArticleGet> getById(@PathVariable Long collectionId, @PathVariable Long id) {
+    public BaseResponse<ResWyArticleGet> get(@PathVariable Long collectionId, @PathVariable Long id) {
         WyArticle wyArticle = wyArticleService.get(collectionId, id);
         if (wyArticle == null) {
             return ResponseUtils.error(404, "id:" + id + " 的文章不存在！");
@@ -58,7 +58,7 @@ public class WyArticleController {
 
     @ApiOperation(value = "根据id获取文章（无需collectionId）")
     @GetMapping("/article/{id}")
-    public BaseResponse<ResWyArticleGet> getWithNoCollection(@PathVariable Long id) {
+    public BaseResponse<ResWyArticleGet> noCollectionGet(@PathVariable Long id) {
         // 未知文集的情况
         WyArticle wyArticle = wyArticleService.getById(id);
         if (wyArticle == null) { //文章不存在
@@ -87,8 +87,8 @@ public class WyArticleController {
 
     @ApiOperation(value = "修改文章内容")
     @PutMapping("/collection/{collectionId}/article/{id}")
-    public BaseResponse<WyArticle> change(@PathVariable Long collectionId, @PathVariable Long id,
-                                          @RequestBody ReqWyArticle reqWyArticle) {
+    public BaseResponse<WyArticle> put(@PathVariable Long collectionId, @PathVariable Long id,
+                                       @RequestBody ReqWyArticle reqWyArticle) {
         WyArticle wyArticle = ReqWyArticle.to(reqWyArticle);
 
         if (wyArticleService.update(collectionId, id, wyArticle) == 0) {
@@ -114,12 +114,12 @@ public class WyArticleController {
         if (wyArticleService.updateCollection(collectionId, id, newCollectionId) == 0) {
             return ResponseUtils.error(400, "文章 id:" + id + " 不存在，修改失败！");
         }
-        return this.getById(newCollectionId, id);
+        return this.get(newCollectionId, id);
     }
 
     @ApiOperation(value = "删除文章")
     @DeleteMapping("/collection/{collectionId}/article/{id}")
-    public BaseResponse<String> deleteArticle(@PathVariable Long collectionId, @PathVariable Long id) {
+    public BaseResponse<String> delete(@PathVariable Long collectionId, @PathVariable Long id) {
         if (wyArticleService.delete(collectionId, id) == 0) {
             return ResponseUtils.error(400, "id:" + id + " 不存在，删除失败！");
         }
