@@ -1,7 +1,6 @@
 package com.htfc786.wydb.model.request;
 
 import com.htfc786.wydb.entity.WyArticle;
-import com.htfc786.wydb.model.response.ResWyArticleGet;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -39,6 +38,6 @@ public class ReqWyArticle {
     }
 
     public static WyArticle to(ReqWyArticle obj) {
-        return new WyArticle(null, null, obj.name, obj.writer, obj.dynasty, obj.source, obj.mainIdea, obj.note, null);
+        return new WyArticle(null, null, obj.name, obj.writer, obj.dynasty, obj.source, obj.mainIdea, obj.note, null, null, null);
     }
 }

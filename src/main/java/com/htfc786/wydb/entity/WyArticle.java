@@ -66,16 +66,30 @@ public class WyArticle implements Serializable {
     @ApiModelProperty("备注信息")
     private String note;
     /**
-     *
+     * 文章内容(json)
      */
-    @NotNull(message = "[]不能为空")
-    @ApiModelProperty("创建日期")
+    @NotBlank(message = "[文章内容(json)]不能为空")
+    @Size(max = -1, message = "编码长度不能超过-1")
+    @ApiModelProperty("文章内容(json)")
+    private String content;
+    /**
+     * 文章内容(文字)
+     */
+    @NotBlank(message = "[文章内容(文字)]不能为空")
+    @Size(max = -1, message = "编码长度不能超过-1")
+    @ApiModelProperty("文章内容(文字)")
+    private String contentString;
+    /**
+     * 文章创建时间
+     */
+    @NotNull(message = "[文章创建时间]不能为空")
+    @ApiModelProperty("文章创建时间")
     private Date createdAt;
 
     public WyArticle() {
     }
 
-    public WyArticle(@NotNull(message = "[id]不能为空") Long id, @NotNull(message = "[所属集合ID，关联collection表]不能为空") Long collectionId, @Size(max = 255, message = "编码长度不能超过255") String name, @Size(max = 255, message = "编码长度不能超过255") String writer, @Size(max = 255, message = "编码长度不能超过255") String dynasty, @Size(max = 255, message = "编码长度不能超过255") String source, @Size(max = -1, message = "编码长度不能超过-1") String mainIdea, @Size(max = -1, message = "编码长度不能超过-1") String note, @NotNull(message = "[]不能为空") Date createdAt) {
+    public WyArticle(@NotNull(message = "[id]不能为空") Long id, @NotNull(message = "[所属集合ID，关联collection表]不能为空") Long collectionId, @Size(max = 255, message = "编码长度不能超过255") String name, @Size(max = 255, message = "编码长度不能超过255") String writer, @Size(max = 255, message = "编码长度不能超过255") String dynasty, @Size(max = 255, message = "编码长度不能超过255") String source, @Size(max = -1, message = "编码长度不能超过-1") String mainIdea, @Size(max = -1, message = "编码长度不能超过-1") String note, @NotBlank(message = "[文章内容(json)]不能为空") @Size(max = -1, message = "编码长度不能超过-1") String content, @NotBlank(message = "[文章内容(文字)]不能为空") @Size(max = -1, message = "编码长度不能超过-1") String contentString, @NotNull(message = "[文章创建时间]不能为空") Date createdAt) {
         this.id = id;
         this.collectionId = collectionId;
         this.name = name;
@@ -84,6 +98,8 @@ public class WyArticle implements Serializable {
         this.source = source;
         this.mainIdea = mainIdea;
         this.note = note;
+        this.content = content;
+        this.contentString = contentString;
         this.createdAt = createdAt;
     }
 
@@ -151,6 +167,30 @@ public class WyArticle implements Serializable {
         this.note = note;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getContentString() {
+        return contentString;
+    }
+
+    public String getContentString(int len) {
+        String text = getContentString();
+        if (text.length() < len) {
+            return text;
+        }
+        return text.substring(0, len);
+    }
+
+    public void setContentString(String contentString) {
+        this.contentString = contentString;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -165,6 +205,8 @@ public class WyArticle implements Serializable {
                 "id=" + id +
                 ", collectionId=" + collectionId +
                 ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", contentString='" + contentString + '\'' +
                 ", writer='" + writer + '\'' +
                 ", dynasty='" + dynasty + '\'' +
                 ", source='" + source + '\'' +

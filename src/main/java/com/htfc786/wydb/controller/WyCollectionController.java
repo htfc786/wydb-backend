@@ -21,7 +21,7 @@ public class WyCollectionController {
 
     @ApiOperation(value = "获取全部文集")
     @GetMapping("/collection")
-    public BaseResponse<List<WyCollection>> get() {
+    public BaseResponse<List<WyCollection>> getAll() {
         return ResponseUtils.success(wyCollectionService.getAll());
     }
 
@@ -50,8 +50,8 @@ public class WyCollectionController {
 
     @ApiOperation(value = "修改文集内容")
     @PutMapping("/collection/{id}")
-    public BaseResponse<WyCollection> put(@PathVariable int id,
-                                          @RequestBody WyCollection wyCollection) {
+    public BaseResponse<WyCollection> change(@PathVariable int id,
+                                             @RequestBody WyCollection wyCollection) {
         if (wyCollectionService.update(id, wyCollection) == 0) {
             return ResponseUtils.error(400, "id:" + id + " 不存在，修改失败！");
         }
@@ -60,7 +60,7 @@ public class WyCollectionController {
 
     @ApiOperation(value = "删除文集")
     @DeleteMapping("/collection/{id}")
-    public BaseResponse<String> delete(@PathVariable int id) {
+    public BaseResponse<String> deleteCollection(@PathVariable int id) {
         if (wyCollectionService.delete(id) == 0) {
             return ResponseUtils.error(400, "id:" + id + " 不存在，删除失败！");
         }

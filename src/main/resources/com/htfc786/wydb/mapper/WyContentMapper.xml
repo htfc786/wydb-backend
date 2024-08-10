@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htfc786.wydb.mapper.WyContentMapper">
+    <update id="updateContent">
+        UPDATE `wy_article`
+        <set>
+            <if test="content != null">content = #{content},</if>
+            <if test="contentString != null">content_string = #{contentString},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <select id="getContentString" resultType="String">
+        SELECT (content_string) FROM `wy_article` WHERE id = #{id}
+    </select>
+    <select id="getContentJson" resultType="String">
+        SELECT (content) FROM `wy_article` WHERE id = #{id}
+    </select>
+</mapper>

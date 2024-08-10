@@ -4,13 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.htfc786.wydb.mapper.WyArticleMapper">
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO `wy_article`(collection_id,name,writer,dynasty,source,main_idea,note) values (#{collectionId}, #{name}, #{writer}, #{dynasty}, #{source}, #{mainIdea}, #{note})
+        INSERT INTO `wy_article`(collection_id, name, writer, dynasty, source, main_idea, note, content, content_string)
+            values (#{collectionId}, #{name}, #{writer}, #{dynasty}, #{source}, #{mainIdea}, #{note}, '[]', '')
     </insert>
     <delete id="deleteById">
-        DELETE FROM  `wy_article` WHERE collection_id = #{collectionId} AND id = #{id}
+        DELETE
+        FROM `wy_article`
+        WHERE collection_id = #{collectionId} AND id = #{id}
     </delete>
     <delete id="deleteByCollectionId">
-        DELETE FROM  `wy_article` WHERE collection_id = #{collectionId}
+        DELETE
+        FROM `wy_article`
+        WHERE collection_id = #{collectionId}
     </delete>
     <update id="updateById">
         UPDATE `wy_article`
@@ -34,6 +39,6 @@
         SELECT * FROM `wy_article` WHERE id = #{id}
     </select>
     <select id="getAll" resultType="com.htfc786.wydb.entity.WyArticle">
-        SELECT * FROM `wy_article` WHERE collection_id = #{collectionId}
+        SELECT id, collection_id, name, writer, dynasty, source, content_string, created_at FROM `wy_article` WHERE `collection_id` = #{collectionId}
     </select>
 </mapper>

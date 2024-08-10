@@ -1,6 +1,5 @@
 package com.htfc786.wydb.model.response;
 
-import com.htfc786.wydb.entity.WyArticle;
 import com.htfc786.wydb.entity.WyCollection;
 import lombok.Data;
 
@@ -12,12 +11,12 @@ public class ResWyArticleGetList {
 
     private WyCollection collection;
 
-    private List<WyArticle> articleList;
+    private List<ResWyArticleGetListArticle> articleList;
 
     public ResWyArticleGetList() {
     }
 
-    public ResWyArticleGetList(WyCollection collection, List<WyArticle> articleList) {
+    public ResWyArticleGetList(WyCollection collection, List<ResWyArticleGetListArticle> articleList) {
         this.collection = collection;
         this.articleList = articleList;
     }
